@@ -1,3 +1,4 @@
+import path from 'path';
 import { createLogger, format, transports } from 'winston';
 
 const { colorize, combine, metadata, timestamp, printf } = format;
@@ -45,7 +46,8 @@ class Logger {
   private filename: string;
 
   constructor(filename: string) {
-    this.filename = filename;
+    //  Only show the filename and not the path
+    this.filename = path.basename(filename);
   }
 
   public error(message: string): void {
