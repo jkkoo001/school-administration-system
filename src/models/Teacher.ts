@@ -1,4 +1,5 @@
 import {
+  BelongsToMany,
   Column,
   DataType,
   HasMany,
@@ -7,6 +8,9 @@ import {
 } from 'sequelize-typescript';
 import { DataTypes } from 'sequelize';
 import TeacherStudentClassSubject from './TeacherStudentClassSubject';
+import Subject from './Subject';
+import Class from './Class';
+import Student from './Student';
 
 //  Full attributes of Teacher model
 export interface TeacherAttributes {
@@ -52,7 +56,34 @@ export default class Teacher extends Model<
   })
   public name!: string;
 
-  //  Define associations via TeacherStudentClassSubject
-  @HasMany(() => TeacherStudentClassSubject)
+  //  Many-to-many with Students through TeacherStudentClassSubject
+  @BelongsToMany(() => Student, {
+    through: () => TeacherStudentClassSubject,
+    foreignKey: 'teacherId',
+    otherKey: 'studentId',
+    as: 'students',
+  })
+  public students!: Student[];
+
+  //  Many-to-many with Classes through TeacherStudentClassSubject
+  @BelongsToMany(() => Class, {
+    through: () => TeacherStudentClassSubject,
+    foreignKey: 'teacherId',
+    otherKey: 'classId',
+    as: 'classes',
+  })
+  public classes!: Class[];
+
+  //  Many-to-many with Subjects through TeacherStudentClassSubject
+  @BelongsToMany(() => Subject, {
+    through: () => TeacherStudentClassSubject,
+    foreignKey: 'teacherId',
+    otherKey: 'subjectId',
+    as: 'subjects',
+  })
+  public subjects!: Subject[];
+
+  //  Direct access to junction table
+  @HasMany(() => TeacherStudentClassSubject, 'teacherId')
   public teacherStudentClassSubjects!: TeacherStudentClassSubject[];
 }

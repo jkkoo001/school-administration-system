@@ -61,7 +61,7 @@ export default class TeacherStudentClassSubject extends Model<
   })
   public teacherId!: string;
 
-  @BelongsTo(() => Teacher)
+  @BelongsTo(() => Teacher, 'teacherId')
   public teachers!: Teacher;
 
   @ForeignKey(() => Student)
@@ -72,7 +72,7 @@ export default class TeacherStudentClassSubject extends Model<
   })
   public studentId!: string;
 
-  @BelongsTo(() => Student)
+  @BelongsTo(() => Student, 'studentId')
   public students!: Student;
 
   @ForeignKey(() => Class)
@@ -83,7 +83,7 @@ export default class TeacherStudentClassSubject extends Model<
   })
   public classId!: string;
 
-  @BelongsTo(() => Class)
+  @BelongsTo(() => Class, 'classId')
   public classes!: Class;
 
   @ForeignKey(() => Subject)
@@ -94,6 +94,6 @@ export default class TeacherStudentClassSubject extends Model<
   })
   public subjectId!: string;
 
-  @BelongsTo(() => Subject)
+  @BelongsTo(() => Subject, 'subjectId')
   public subjects!: Subject;
 }
