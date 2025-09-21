@@ -1,3 +1,4 @@
+import 'reflect-metadata';  // For decorator-based Sequelize models
 import 'dotenv/config';
 import sequelize from './config/database';
 import Logger from './config/logger';
