@@ -2,10 +2,19 @@ import { StatusCodes } from 'http-status-codes';
 import ErrorCodes from '../const/ErrorCodes';
 import ErrorBase from '../errors/ErrorBase';
 import { ErrorRequestHandler } from 'express';
+import { MAX_FILE_SIZE_MB } from '../const/FileConstants';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
+  }
+
+  // Handling of multer file size limit error
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    return res.status(StatusCodes.REQUEST_TOO_LONG).send({
+      errorCode: ErrorCodes.FILE_SIZE_LIMIT_EXCEEDED_CODE,
+      message: `File size exceeds the ${MAX_FILE_SIZE_MB}MB limit.`,
+    });
   }
 
   // Handling of body-parser content malformed error
