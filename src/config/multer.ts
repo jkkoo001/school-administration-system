@@ -1,4 +1,5 @@
 import multer from 'multer';
+import { MAX_FILE_SIZE_MB } from '../const/FileConstants';
 
 const diskStorage = multer.diskStorage({
   destination: '/tmp/school-administration-system-uploads',
@@ -7,6 +8,11 @@ const diskStorage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: diskStorage });
+const upload = multer({
+  storage: diskStorage,
+  limits: {
+    fileSize: MAX_FILE_SIZE_MB * 1024 * 1024, //  Converts mb to bytes
+  }
+});
 
 export default upload;
