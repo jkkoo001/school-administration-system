@@ -1,9 +1,10 @@
 {
   "name": "school-administration-system",
   "version": "1.0.0",
-  "description": "This is a system which School administrators and Teachers can perform administrative functions on their students",
+  "description": "This is a system for school administrators to perform administrative functions on teachers, students, classes and subjects",
   "scripts": {
     "test": "jest",
+    "test-coverage": "jest --coverage",
     "build:ts": "tsc",
     "prestart": "npm run start:services",
     "start": "ts-node ./src/server.ts",
