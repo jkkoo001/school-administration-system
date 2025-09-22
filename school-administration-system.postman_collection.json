@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "9ca88bce-432c-43b3-8130-d640eedcd0ec",
+		"name": "school-administration-system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35301443"
+	},
+	"item": [
+		{
+			"name": "File Upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "data",
+							"contentType": "multipart/form-data",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/upload",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"upload"
+					]
+				},
+				"description": "Upload file to school-administration-system"
+			},
+			"response": []
+		},
+		{
+			"name": "Healtcheck",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "data",
+							"contentType": "multipart/form-data",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/healthcheck",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"healthcheck"
+					]
+				},
+				"description": "Healthcheck for application"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student List (External)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/students?class=2&offset=1&limit=2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students"
+					],
+					"query": [
+						{
+							"key": "class",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				},
+				"description": "Retrieve student list from external system"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/class/P1-1/students?limit=10&offset=0",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"class",
+						"P1-1",
+						"students"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				},
+				"description": "Retrieve paginated combined student list from internal and external system"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Class Name",
+			"request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"className\": \"P1ABC\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/api/class/P1A",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "class", "P1A"]
+        },
+        "description": "Update class name"
+      },
+			"response": []
+		},
+		{
+			"name": "Get Workload Report",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "localhost:3000/api/reports/workload",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "reports", "workload"]
+        },
+        "description": "Generate teachers workload report"
+      },
+			"response": []
+		}
+	]
+}
