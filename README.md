@@ -1,10 +1,12 @@
 # School Administration System (Backend)
-A backend service for managing teachers, students, classes and subjects.
+A backend service for managing teachers, students, classes and subjects.<br>
+This service also integrates with an external system for student-related operations.
 <br>
 <br>
 ### Features
 - RESTful API with Node.js & Express
 - MySQL database with Sequelize ORM
+- Integration with an external student management system
 - Dockerized for easy setup
 - PhpMyAdmin GUI for managing the database
 <br>
@@ -26,7 +28,7 @@ Create a ```.env``` file in the root directory and configure the required variab
 <br>
 
 ### Running the Application Locally
-Start the application with all required services (database + external system) via Docker:
+Start the application with all required services (MySQL database + External Student System + phpMyAdmin GUI) via Docker:
 <pre>npm start</pre>
 Run in watch mode (for development):
 <pre>npm run start:dev</pre>
@@ -37,13 +39,16 @@ Verify the application is running:
 <pre>GET http://localhost:3000/api/healthcheck</pre>
 <br>
 
-### External System Check
-Verify the provided external system is running:
+### External System
+This backend interacts with a companion **External System** that provides student data and expects it to be available at:
+<pre>http://localhost:5000</pre>
+
+To verify the external system is running:
 <pre>POST http://localhost:5000/students?class=2&offset=1&limit=2</pre>
 <br>
 
 ### Database
-The application uses MySQL 8.0, which runs in a Docker container.<br>
+The application uses **MySQL 8.0**, which runs in a Docker container.<br>
 A phpMyAdmin web GUI is also available at:
 <pre>http://localhost:8080</pre>
 Login using the same database credentials defined in ```.env``` or ```docker-compose.yml```.
@@ -51,12 +56,12 @@ Login using the same database credentials defined in ```.env``` or ```docker-com
 <br>
 
 ### Exposed Ports
-|Service	| Port |
-|---------|------|
-|Application |	3000 |
-|External System |	5000 |
-|MySQL Database |	33306 |
-|phpMyAdmin |	8080 |
+| Service             | Port  | Description                           |
+|---------------------|-------|---------------------------------------|
+| Backend Application | 3000  | Main API server (Express)             |
+| External System     | 5000  | Student data provider (dependency)    |
+| MySQL Database      | 33306 | MySQL instance (for application data) |
+| phpMyAdmin          | 8080  | Web GUI for managing the database     |
 <br>
 
 ### Testing the API
