@@ -17,6 +17,8 @@ export const getStudentsByClass = async (
   students: StudentData[]
 }> => {
   try {
+    LOG.info(`Fetching internal students for class ${classCode}`);
+
     // Fetch internal students
     const internalStudents = await Student.findAll({
       include: [
@@ -27,6 +29,14 @@ export const getStudentsByClass = async (
         },
       ],
     });
+
+    if (internalStudents.length === 0) {
+      LOG.info(`No internal student retrieved for class ${classCode}`);
+    }
+
+    LOG.info(
+      `Retrieved ${internalStudents.length} internal students for class ${classCode}`
+    );
 
     const formattedInternal: StudentData[] = internalStudents.map(
       (student) => ({
@@ -39,7 +49,9 @@ export const getStudentsByClass = async (
     // Fetch external students
     const externalStudentUrl = 'http://localhost:5000/students';
 
-    LOG.info(`Fetching external students from ${externalStudentUrl}`);
+    LOG.info(
+      `Fetching external students from ${externalStudentUrl} for class ${classCode}`
+    );
 
     const externalResponse = await axios.get(externalStudentUrl, {
       params: { class: classCode, offset, limit },
@@ -50,6 +62,11 @@ export const getStudentsByClass = async (
       LOG.info(`No external student retrieved for class ${classCode}`);
     }
 
+    LOG.info(
+      `Retrieved ${externalStudents.length} students for class ${classCode} from external system`
+    );
+
+    //  Sort by alphanumerical order
     const combinedStudents = [...formattedInternal, ...externalStudents].sort(
       (a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }) //  undefined locale to use default runtime locale; sensitivity base to ignore case and accent
     );
